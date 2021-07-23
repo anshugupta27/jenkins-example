@@ -5,6 +5,8 @@ pipeline {
         stage ('Compile Stage') {
 
             steps {
+                def mvnTool = tool 'Maven3'
+                sh "${mvnTool}/bin/mvn clean install"
                 withMaven(maven : 'Maven3') {
                     sh 'mvn clean compile'
                 }
@@ -14,8 +16,10 @@ pipeline {
         stage ('Testing Stage') {
 
             steps {
+                def mvnTool = tool 'Maven3'
+                sh "${mvnTool}/bin/mvn clean install"
                 withMaven(maven : 'Maven3') {
-                    sh 'mvn test'
+                    sh 'mvn clean compile'
                 }
             }
         }
@@ -23,8 +27,10 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
+                def mvnTool = tool 'Maven3'
+                sh "${mvnTool}/bin/mvn clean install"
                 withMaven(maven : 'Maven3') {
-                    sh 'mvn deploy'
+                    sh 'mvn clean compile'
                 }
             }
         }
